@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Build\TableService;
+use App\Build\MigrationService;
 
 class BuildController extends Controller
 {
-    protected $tableService;
+    protected $migrationService;
     protected $projectService;
 
-    public function __construct(TableService $tableService)
+    public function __construct(MigrationService $migrationService)
     {
-        $this->tableService = $tableService;
+        $this->migrationService = $migrationService;
     }
 
     public function createProject(Request $request)
@@ -20,8 +20,8 @@ class BuildController extends Controller
         //
     }
 
-    public function createTable(Request $request)
+    public function createMigration(Request $request)
     {
-        return $this->tableService->create($request->name, $request->fields);
+        return $this->migrationService->create($request->name, $request->fields);
     }
 }

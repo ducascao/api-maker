@@ -5,26 +5,23 @@ namespace App\Build;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 
-class TableService
+class MigrationService
 {
     public function create(String $name, array $fields)
     {
-        Artisan::call('make:migration create_' .$name. '_table');
+        Artisan::call('make:model ' .$name. ' -m');
 
         $migrations = Storage::disk('migrations')->allFiles();
 
         $migration = array_filter($migrations, function ($value) use ($name) {
-            return strpos($value, $name);
+            return strpos(strtolower($value), strtolower($name)) !== false;
         });
 
         $migrationFileName = implode('', $migration);
-
         $migrationFile = Storage::disk('migrations')->get($migrationFileName);
 
         $dummyFields = $this->dummyFields($fields);
-
         $migrationFile = str_replace('$dummyFields;', $dummyFields, $migrationFile);
-
         Storage::disk('migrations')->put($migrationFileName, $migrationFile);
     }
 

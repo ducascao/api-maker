@@ -1,10 +1,12 @@
 <?php
 
-namespace {{ namespace }};
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class {{ class }} extends Model
+class Customer extends Model
 {
     $dummyFillable;
+
+    $dummyMethods;
 }
