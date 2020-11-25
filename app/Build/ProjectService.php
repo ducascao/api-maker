@@ -12,7 +12,7 @@ class ProjectService
         //
     }
 
-    public function createTables()
+    public function createMigrations()
     {
         //
     }

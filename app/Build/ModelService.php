@@ -9,31 +9,47 @@ class ModelService
 {
     public function create(String $name, array $fields)
     {
+        $model = $this->findModel($name);
+
+        // Add Fillable fields
+        $dummyFillable = $this->dummyFillable($fields);
+        $modelFile = str_replace('$dummyFillable;', $dummyFillable, $model['file']);
+
+        Storage::disk('models')->put($model['filename'], $modelFile);
+    }
+
+    public function findModel(String $name)
+    {
         $models = Storage::disk('models')->allFiles();
 
         $model = array_filter($models, function ($value) use ($name) {
             return strpos(strtolower($value), strtolower($name)) !== false;
         });
 
+        if (count($model) === 0) {
+            Artisan::call('make:model ' .$name);
+
+            return $this->findModel($name);
+        }
+
         $modelFileName = implode('', $model);
         $modelFile = Storage::disk('models')->get($modelFileName);
 
-        // Add Fillable fields
-        $dummyFillable = $this->dummyFillable($fields);
-        $modelFile = str_replace('$dummyFields;', $dummyFillable, $modelFile);
-
-        Storage::disk('models')->put($modelFileName, $modelFile);
+        return [
+            'filename' => $modelFileName,
+            'file' => $modelFile
+        ];
     }
 
-    public function dummyFillable(array $fields)
+    public function dummyFillable(array $fillables)
     {
-        $dummyFields = '';
+        $dummyFillables = '';
 
-        foreach ($fields as $key => $value) {
-            $dummyFields .= $this->addFieldFillable($value, $key, count($fields));
+        foreach ($fillables as $key => $value) {
+            $dummyFillables .= $this->addFieldFillable($value, $key, count($fillables));
         }
 
-        return $dummyFields;
+        return $dummyFillables;
     }
 
     public function dummyMethods(array $fields)
@@ -47,23 +63,22 @@ class ModelService
         return $dummyMethods;
     }
 
-    public function addFieldFillable($field, Int $pos, Int $size)
+    public function addFieldFillable($fillable, Int $pos, Int $size)
     {
         $tab = '    ';
-        $fillable = '';
-        $dummyField = '';
+        $dummyFillable = '';
 
         if ($pos === 0) {
-            $fillable .= '$'."fillable = [\n";
+            $dummyFillable .= 'protected $'."fillable = [\n";
         }
 
-        $fillable .= $tab.$tab."'$field[name]'\n";
+        $dummyFillable .= $tab.$tab."'$fillable[name]',\n";
 
         if ($pos === $size - 1) {
-            $fillable .= "]\n";
+            $dummyFillable .= $tab."];";
         }
 
-        return $dummyField;
+        return $dummyFillable;
     }
 
     /**
