@@ -2,37 +2,48 @@
 
 namespace App\Services;
 
-class GenericService
-{
-    protected $migrationService;
+use App\Models\DummyModel;
 
-    public function __construct(MigrationService $migrationService)
+class DummyService
+{
+    protected $dummyModelService;
+
+    public function __construct(DummyModel $dummyModelService)
     {
-        $this->migrationService = $migrationService;
+        $this->dummyModelService = $dummyModelService;
     }
 
     public function index()
     {
-        //
+        return $this->dummyModelService->all();
     }
 
     public function show(Int $id)
     {
-        //
+        return $this->dummyModelService->get($id);
     }
 
     public function store(array $data)
     {
-        //
+        $this->dummyModelService->fill($data);
+        $this->dummyModelService->save();
+
+        return $this->dummyModelService;
     }
 
     public function update(array $data, Int $id)
     {
-        //
+        $dataToUpdate = $this->dummyModelService->get($id);
+        $dataToUpdate->fill($data);
+        $dataToUpdate->save();
+
+        return $dataToUpdate;
     }
 
     public function destroy(Int $id)
     {
+        $dataToRemove = $this->dummyModelService->get($id);
 
+        return $dataToRemove->delete();
     }
 }
