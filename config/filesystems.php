@@ -60,6 +60,16 @@ return [
             'root' => base_path('database/migrations'),
         ],
 
+        'services' => [
+            'driver' => 'local',
+            'root' => app_path('Services'),
+        ],
+
+        'controllers' => [
+            'driver' => 'local',
+            'root' => app_path('Controllers'),
+        ],
+
         'models' => [
             'driver' => 'local',
             'root' => app_path(),

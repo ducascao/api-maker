@@ -4,28 +4,28 @@ namespace App\Console\Commands;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ServiceMakeCommand extends GeneratorCommand
+class ControllerServiceMakeCommand extends GeneratorCommand
 {
     /**
      * O nome e a assinatura do comando do console.
      *
      * @var string
      */
-    protected $name = 'make:service';
+    protected $name = 'make:controller-service';
   
     /**
       * A descrição do comando do console.
       *
       * @var string
       */
-    protected $description = 'Create a new service class';
+    protected $description = 'Create a new controller class';
   
     /**
    * O tipo de classe sendo gerada.
    *
    * @var string
    */
-    protected $type = 'Service';
+    protected $type = 'Controller';
    
     /**
     * Substitui o nome da classe para o stub fornecido.
@@ -37,7 +37,7 @@ class ServiceMakeCommand extends GeneratorCommand
     protected function replaceClass($stub, $name)
     {
         $stub = parent::replaceClass($stub, $name);
-        return str_replace('DummyService', $this->argument('name'), $stub);
+        return str_replace('DummyController', $this->argument('name'), $stub);
     }
 
     /**
@@ -50,9 +50,9 @@ class ServiceMakeCommand extends GeneratorCommand
     protected function replaceModel(&$stub, $name)
     {
         $class_name = ucfirst($this->argument('name'));
-        $class_name = str_replace('Service', '', $class_name);
+        $class_name = str_replace('Controller', '', $class_name);
 
-        $stub = str_replace('DummyModel', $class_name, $stub);
+        $stub = str_replace('DummyService', $class_name . 'Service', $stub);
 
         return $this;
     }
@@ -67,9 +67,9 @@ class ServiceMakeCommand extends GeneratorCommand
     protected function replaceModelService(&$stub, $name)
     {
         $class_name = strtolower($this->argument('name'));
-        $class_name = str_replace('service', '', $class_name);
+        $class_name = str_replace('controller', '', $class_name);
 
-        $stub = str_replace('dummyModel', $class_name, $stub);
+        $stub = str_replace('dummyService', $class_name . 'Service', $stub);
 
         return $this;
     }
@@ -97,7 +97,7 @@ class ServiceMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return  base_path() . '/stubs/service.stub';
+        return  base_path() . '/stubs/controller.service.stub';
     }
     /**
    * Obtém o namespace padrão para a classe.
@@ -107,7 +107,7 @@ class ServiceMakeCommand extends GeneratorCommand
    */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Services';
+        return $rootNamespace . '\Controllers';
     }
 
     /**

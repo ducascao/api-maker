@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Https\Controllers;
+
+use App\Services\DummyService;
+
+class DummyController
+{
+    protected $dummyService;
+
+    public function __construct(DummyService $dummyService)
+    {
+        $this->dummyService = $dummyService;
+    }
+
+    public function index()
+    {
+        return $this->dummyService->index();
+    }
+
+    public function show(Int $id)
+    {
+        return $this->dummyService->show($id);
+    }
+
+    public function store(array $data)
+    {
+        return $this->dummyService->store($data);
+    }
+
+    public function update(array $data, Int $id)
+    {
+        return $this->dummyService->update($data, $id);
+    }
+
+    public function destroy(Int $id)
+    {
+        return $this->dummyService->destroy($id);
+    }
+}
