@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Services;
+
+class GenericService
+{
+    protected $migrationService;
+
+    public function __construct(MigrationService $migrationService)
+    {
+        $this->migrationService = $migrationService;
+    }
+
+    public function index()
+    {
+        //
+    }
+
+    public function show(Int $id)
+    {
+        //
+    }
+
+    public function store(array $data)
+    {
+        //
+    }
+
+    public function update(array $data, Int $id)
+    {
+        //
+    }
+
+    public function destroy(Int $id)
+    {
+
+    }
+}

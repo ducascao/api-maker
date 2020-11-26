@@ -15,7 +15,8 @@ class ModelService
         $dummyFillable = $this->dummyFillable($fields);
         $modelFile = str_replace('$dummyFillable;', $dummyFillable, $model['file']);
 
-        Storage::disk('models')->put($model['filename'], $modelFile);
+        Storage::disk('local')->put('/project/models/'.$model['filename'], $modelFile);
+        Storage::disk('models')->delete($model['filename']);
     }
 
     public function findModel(String $name)

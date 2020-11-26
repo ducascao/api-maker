@@ -22,7 +22,9 @@ class MigrationService
 
         $dummyFields = $this->dummyFields($fields);
         $migrationFile = str_replace('$dummyFields;', $dummyFields, $migrationFile);
-        Storage::disk('migrations')->put($migrationFileName, $migrationFile);
+
+        Storage::disk('local')->put('/project/migrations/'.$migrationFileName, $migrationFile);
+        Storage::disk('migrations')->delete($migrationFileName);
     }
 
     public function dummyFields(array $fields)
@@ -51,11 +53,11 @@ class MigrationService
             $dummyField .= $this->addRelationField($field, $nullable);
         } else {
             if ($pos === $size - 1) {
-                $dummyField .= $tab.$table.$field['type']."('$field[name]')$nullable";
+                $dummyField .= $tab.$table.$field['type']."('$field[name]')$nullable;";
             } elseif ($pos === 0) {
-                $dummyField .= $table.$field['type']."('$field[name]')$nullable\n";
+                $dummyField .= $table.$field['type']."('$field[name]')$nullable;\n";
             } else {
-                $dummyField .= $tab.$table.$field['type']."('$field[name]')$nullable\n";
+                $dummyField .= $tab.$table.$field['type']."('$field[name]')$nullable;\n";
             }
         }
 
@@ -74,8 +76,8 @@ class MigrationService
             $relationField = $field['relationship']['field'];
         }
 
-        $dummyField .= $tab.$table."unsignedBigInteger('$field[name]')$nullable\n";
-        $dummyField .= $tab.$table."foreign('$field[name]')->references('$relationField')->on('$relation')\n";
+        $dummyField .= $tab.$table."unsignedBigInteger('$field[name]')$nullable;\n";
+        $dummyField .= $tab.$table."foreign('$field[name]')->references('$relationField')->on('$relation');\n";
 
         return $dummyField;
     }
