@@ -4,29 +4,29 @@ namespace App\Console\Commands;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ControllerServiceMakeCommand extends GeneratorCommand
+class ServiceInterfaceMakeCommand extends GeneratorCommand
 {
     /**
      * O nome e a assinatura do comando do console.
      *
      * @var string
      */
-    protected $name = 'make:controller-service';
+    protected $name = 'make:service-interface';
   
     /**
       * A descrição do comando do console.
       *
       * @var string
       */
-    protected $description = 'Create a new controller class';
+    protected $description = 'Create a new service interface class';
   
     /**
-   * O tipo de classe sendo gerada.
-   *
-   * @var string
-   */
-    protected $type = 'Controller';
-   
+     * O tipo de classe sendo gerada.
+     *
+     * @var string
+     */
+    protected $type = 'Interface';
+
     /**
     * Substitui o nome da classe para o stub fornecido.
     *
@@ -37,24 +37,7 @@ class ControllerServiceMakeCommand extends GeneratorCommand
     protected function replaceClass($stub, $name)
     {
         $stub = parent::replaceClass($stub, $name);
-        return str_replace('DummyController', $this->argument('name'), $stub);
-    }
-
-    /**
-     * Substitui a palavra DummyModel na stub.
-     *
-     * @param  string  $stub
-     * @param  string  $name
-     * @return $this
-     */
-    protected function replaceFacade(&$stub, $name)
-    {
-        $class_name = ucfirst($this->argument('name'));
-        $class_name = str_replace('Controller', '', $class_name);
-
-        $stub = str_replace('DummyFacade', $class_name, $stub);
-
-        return $this;
+        return str_replace('Dummy', $this->argument('name'), $stub);
     }
 
     /**
@@ -68,8 +51,7 @@ class ControllerServiceMakeCommand extends GeneratorCommand
     {
         $stub = $this->files->get($this->getStub());
 
-        return $this->replaceFacade($stub, $name)
-        ->replaceClass($stub, $name);
+        return $this->replaceClass($stub, $name);
     }
 
     /**
@@ -79,7 +61,7 @@ class ControllerServiceMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return  base_path() . '/stubs/controller.service.stub';
+        return  base_path() . '/stubs/service-interface.stub';
     }
     /**
    * Obtém o namespace padrão para a classe.
@@ -89,7 +71,7 @@ class ControllerServiceMakeCommand extends GeneratorCommand
    */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Controllers';
+        return $rootNamespace . '\Services\Interfaces';
     }
 
     /**
@@ -100,7 +82,7 @@ class ControllerServiceMakeCommand extends GeneratorCommand
     protected function getArguments()
     {
         return [
-            ['name', InputArgument::REQUIRED, 'The name of the controller.'],
+            ['name', InputArgument::REQUIRED, 'The name of the service.'],
         ];
     }
 }

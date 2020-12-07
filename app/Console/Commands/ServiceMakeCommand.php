@@ -37,39 +37,20 @@ class ServiceMakeCommand extends GeneratorCommand
     protected function replaceClass($stub, $name)
     {
         $stub = parent::replaceClass($stub, $name);
-        return str_replace('DummyService', $this->argument('name'), $stub);
+        return str_replace('DummyClass', $this->argument('name'), $stub);
     }
 
     /**
-     * Substitui a palavra DummyModel na stub.
+     * Substitui a palavra dummy na stub.
      *
      * @param  string  $stub
      * @param  string  $name
      * @return $this
      */
-    protected function replaceModel(&$stub, $name)
+    protected function replaceDummy(&$stub, $name)
     {
         $class_name = ucfirst($this->argument('name'));
-        $class_name = str_replace('Service', '', $class_name);
-
-        $stub = str_replace('DummyModel', $class_name, $stub);
-
-        return $this;
-    }
-
-    /**
-     * Substitui a palavra dummyModelService na stub.
-     *
-     * @param  string  $stub
-     * @param  string  $name
-     * @return $this
-     */
-    protected function replaceModelService(&$stub, $name)
-    {
-        $class_name = strtolower($this->argument('name'));
-        $class_name = str_replace('service', '', $class_name);
-
-        $stub = str_replace('dummyModel', $class_name, $stub);
+        $stub = str_replace('dummy', strtolower($class_name), $stub);
 
         return $this;
     }
@@ -85,13 +66,12 @@ class ServiceMakeCommand extends GeneratorCommand
     {
         $stub = $this->files->get($this->getStub());
 
-        return $this->replaceModel($stub, $name)
-            ->replaceModelService($stub, $name)
+        return $this->replaceDummy($stub, $name)
         ->replaceClass($stub, $name);
     }
 
     /**
-     * Obtpem o arquivo stub para o gerador.
+     * Obtém o arquivo stub para o gerador.
      *
      * @return string
      */

@@ -21,12 +21,28 @@ class RepositoryMakeCommand extends GeneratorCommand
     protected $description = 'Create a new repository class';
   
     /**
-   * O tipo de classe sendo gerada.
-   *
-   * @var string
-   */
+     * O tipo de classe sendo gerada.
+     *
+     * @var string
+     */
     protected $type = 'Repository';
-   
+
+    /**
+     * Substitui a palavra DummyModel na stub.
+     *
+     * @param  string  $stub
+     * @param  string  $name
+     * @return $this
+     */
+    protected function replaceModel(&$stub, $name)
+    {
+        $class_name = ucfirst($this->argument('name'));
+
+        $stub = str_replace('DummyModel', $class_name, $stub);
+
+        return $this;
+    }
+
     /**
     * Substitui o nome da classe para o stub fornecido.
     *
@@ -37,8 +53,24 @@ class RepositoryMakeCommand extends GeneratorCommand
     protected function replaceClass($stub, $name)
     {
         $stub = parent::replaceClass($stub, $name);
-        return str_replace('GenericRepository', $this->argument('name'), $stub);
+        return str_replace('DummyRepository', $this->argument('name') . 'Repository', $stub);
     }
+
+    /**
+     * Build the class with the given name.
+     *
+     * @param  string  $name
+     * @return string
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    protected function buildClass($name)
+    {
+        $stub = $this->files->get($this->getStub());
+
+        return $this->replaceModel($stub, $name)
+            ->replaceClass($stub, $name);
+    }
+
     /**
      * Obtpem o arquivo stub para o gerador.
      *

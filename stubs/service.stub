@@ -2,48 +2,18 @@
 
 namespace App\Services;
 
-use App\Models\DummyModel;
+use App\Repositories\Interfaces\DummyClassRepositoryInterface;
+use App\Services\Interfaces\DummyClassServiceInterface;
 
-class DummyService
+class DummyClassService extends BaseService implements DummyClassServiceInterface
 {
-    protected $dummyModelService;
-
-    public function __construct(DummyModel $dummyModelService)
+    /**
+     * DummyClassService constructor
+     *
+     * @param DummyClassRepositoryInterface $DummyClassRespository
+     */
+    public function __construct(DummyClassColorRepositoryInterface $dummyRepository)
     {
-        $this->dummyModelService = $dummyModelService;
-    }
-
-    public function index()
-    {
-        return $this->dummyModelService->all();
-    }
-
-    public function show(Int $id)
-    {
-        return $this->dummyModelService->get($id);
-    }
-
-    public function store(array $data)
-    {
-        $this->dummyModelService->fill($data);
-        $this->dummyModelService->save();
-
-        return $this->dummyModelService;
-    }
-
-    public function update(array $data, Int $id)
-    {
-        $dataToUpdate = $this->dummyModelService->get($id);
-        $dataToUpdate->fill($data);
-        $dataToUpdate->save();
-
-        return $dataToUpdate;
-    }
-
-    public function destroy(Int $id)
-    {
-        $dataToRemove = $this->dummyModelService->get($id);
-
-        return $dataToRemove->delete();
+        parent::__construct($dummyRepository);
     }
 }

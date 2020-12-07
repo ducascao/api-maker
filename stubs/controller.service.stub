@@ -2,39 +2,33 @@
 
 namespace App\Https\Controllers;
 
-use App\Services\DummyService;
+use App\Facades\DummyFacade;
+use Illuminate\Http\Request;
 
 class DummyController
 {
-    protected $dummyService;
-
-    public function __construct(DummyService $dummyService)
-    {
-        $this->dummyService = $dummyService;
-    }
-
     public function index()
     {
-        return $this->dummyService->index();
+        return DummyFacade::list();
     }
 
-    public function show(Int $id)
+    public function show(int $id)
     {
-        return $this->dummyService->show($id);
+        return DummyFacade::get($id);
     }
 
-    public function store(array $data)
+    public function store(Request $request)
     {
-        return $this->dummyService->store($data);
+        return DummyFacade::save($request->all());
     }
 
-    public function update(array $data, Int $id)
+    public function update(Request $request, int $id)
     {
-        return $this->dummyService->update($data, $id);
+        return DummyFacade::save($request->all(), $id);
     }
 
-    public function destroy(Int $id)
+    public function destroy(int $id)
     {
-        return $this->dummyService->destroy($id);
+        DummyFacade::delete($id);
     }
 }

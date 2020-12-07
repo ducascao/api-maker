@@ -9,7 +9,7 @@ class MidwayService
 {
     public function create(string $name)
     {
-        Artisan::call('make:service ' .$name.'Service');
+        Artisan::call('make:service ' .$name);
 
         $services = Storage::disk('services')->allFiles();
 
@@ -22,5 +22,10 @@ class MidwayService
 
         Storage::disk('local')->put('/project/services/'.$serviceFileName, $serviceFile);
         Storage::disk('services')->delete($serviceFileName);
+    }
+
+    public function baseService(string $name)
+    {
+        //
     }
 }

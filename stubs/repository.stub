@@ -2,15 +2,17 @@
 
 namespace App\Repositories;
 
-class GenericRepository
-{
-    public function insertOrChangeData()
-    {
-        //
-    }
+use App\Models\DummyModel;
+use App\Repositories\BaseRepository;
+use App\Repositories\Interfaces\DummyRepositoryInterface;
 
-    public function removeData()
+class DummyRepository extends BaseRepository implements DummyRepositoryInterface
+{
+    /**
+     * DummyRepository constructor
+     */
+    public function __construct(DummyModel $model)
     {
-        //
+        parent::__construct($model);
     }
 }

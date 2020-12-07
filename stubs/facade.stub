@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Facades;
+
+use App\Services\Interfaces\DummyServiceInterface;
+use Illuminate\Support\Facades\Facade;
+
+class Dummy extends Facade
+{
+    protected static function getFacadeAccessor()
+    {
+        return DummyServiceInterface::class;
+    }
+}

@@ -14,7 +14,10 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\ServiceMakeCommand::class,
+        \App\Console\Commands\FacadeMakeCommand::class,
+        \App\Console\Commands\ServiceInterfaceMakeCommand::class,
         \App\Console\Commands\RepositoryMakeCommand::class,
+        \App\Console\Commands\RepositoryInterfaceMakeCommand::class,
         \App\Console\Commands\ControllerServiceMakeCommand::class,
     ];
 
