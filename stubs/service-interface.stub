@@ -2,7 +2,7 @@
 
 namespace App\Services\Interfaces;
 
-interface DummyServiceInterface extends BaseServiceInterface
+interface Dummy extends BaseServiceInterface
 {
 
 }

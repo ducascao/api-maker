@@ -65,6 +65,16 @@ return [
             'root' => app_path('Services'),
         ],
 
+        'facades' => [
+            'driver' => 'local',
+            'root' => app_path('Facades'),
+        ],
+
+        'repositories' => [
+            'driver' => 'local',
+            'root' => app_path('Repositories'),
+        ],
+
         'controllers' => [
             'driver' => 'local',
             'root' => app_path('Controllers'),

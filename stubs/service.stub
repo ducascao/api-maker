@@ -3,16 +3,16 @@
 namespace App\Services;
 
 use App\Repositories\Interfaces\DummyClassRepositoryInterface;
-use App\Services\Interfaces\DummyClassServiceInterface;
+use App\Services\Interfaces\DummyClassInterface;
 
-class DummyClassService extends BaseService implements DummyClassServiceInterface
+class DummyClass extends BaseService implements DummyClassInterface
 {
     /**
-     * DummyClassService constructor
+     * DummyClass constructor
      *
-     * @param DummyClassRepositoryInterface $DummyClassRespository
+     * @param DummyClassRepositoryInterface $dummyRepository
      */
-    public function __construct(DummyClassColorRepositoryInterface $dummyRepository)
+    public function __construct(DummyClassRepositoryInterface $dummyRepository)
     {
         parent::__construct($dummyRepository);
     }

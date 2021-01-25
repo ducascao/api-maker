@@ -41,19 +41,4 @@ class ProjectService
             $this->controllerService->create(($value['name']));
         }
     }
-
-    public function createServices(string $name)
-    {
-        $this->comService->create($name);
-    }
-
-    public function createControllers()
-    {
-        //
-    }
-
-    public function createRoutes()
-    {
-        //
-    }
 }

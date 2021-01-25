@@ -19,6 +19,10 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\RepositoryMakeCommand::class,
         \App\Console\Commands\RepositoryInterfaceMakeCommand::class,
         \App\Console\Commands\ControllerServiceMakeCommand::class,
+        \App\Console\Commands\BaseInterfaceMakeCommand::class,
+        \App\Console\Commands\BaseServiceMakeCommand::class,
+        \App\Console\Commands\BaseRepositoryMakeCommand::class,
+        \App\Console\Commands\BaseRepositoryInterfaceMakeCommand::class,
     ];
 
     /**

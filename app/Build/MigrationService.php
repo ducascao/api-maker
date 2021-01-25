@@ -18,6 +18,7 @@ class MigrationService
         });
 
         $migrationFileName = implode('', $migration);
+
         $migrationFile = Storage::disk('migrations')->get($migrationFileName);
 
         $dummyFields = $this->dummyFields($fields);
