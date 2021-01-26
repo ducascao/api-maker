@@ -5,16 +5,16 @@ namespace App\Build;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 
-class TableService
+class MigrationService
 {
     public function create(String $name, array $fields)
     {
-        Artisan::call('make:migration create_' .$name. '_table');
+        Artisan::call('make:model ' .$name. ' -m');
 
         $migrations = Storage::disk('migrations')->allFiles();
 
         $migration = array_filter($migrations, function ($value) use ($name) {
-            return strpos($value, $name);
+            return strpos(strtolower($value), strtolower($name)) !== false;
         });
 
         $migrationFileName = implode('', $migration);
@@ -22,10 +22,10 @@ class TableService
         $migrationFile = Storage::disk('migrations')->get($migrationFileName);
 
         $dummyFields = $this->dummyFields($fields);
-
         $migrationFile = str_replace('$dummyFields;', $dummyFields, $migrationFile);
 
-        Storage::disk('migrations')->put($migrationFileName, $migrationFile);
+        Storage::disk('local')->put('/project/migrations/'.$migrationFileName, $migrationFile);
+        Storage::disk('migrations')->delete($migrationFileName);
     }
 
     public function dummyFields(array $fields)
@@ -54,11 +54,11 @@ class TableService
             $dummyField .= $this->addRelationField($field, $nullable);
         } else {
             if ($pos === $size - 1) {
-                $dummyField .= $tab.$table.$field['type']."('$field[name]')$nullable";
+                $dummyField .= $tab.$table.$field['type']."('$field[name]')$nullable;";
             } elseif ($pos === 0) {
-                $dummyField .= $table.$field['type']."('$field[name]')$nullable\n";
+                $dummyField .= $table.$field['type']."('$field[name]')$nullable;\n";
             } else {
-                $dummyField .= $tab.$table.$field['type']."('$field[name]')$nullable\n";
+                $dummyField .= $tab.$table.$field['type']."('$field[name]')$nullable;\n";
             }
         }
 
@@ -77,8 +77,8 @@ class TableService
             $relationField = $field['relationship']['field'];
         }
 
-        $dummyField .= $tab.$table."unsignedBigInteger('$field[name]')$nullable\n";
-        $dummyField .= $tab.$table."foreign('$field[name]')->references('$relationField')->on('$relation')\n";
+        $dummyField .= $tab.$table."unsignedBigInteger('$field[name]')$nullable;\n";
+        $dummyField .= $tab.$table."foreign('$field[name]')->references('$relationField')->on('$relation');\n";
 
         return $dummyField;
     }

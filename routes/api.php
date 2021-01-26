@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'build'], function () {
     Route::post('/project', 'BuildController@createProject');
-    Route::post('/table', 'BuildController@createTable');
+    Route::post('/migration', 'BuildController@createMigration');
+    Route::post('/model', 'BuildController@createModel');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

@@ -2,38 +2,43 @@
 
 namespace App\Build;
 
-use Illuminate\Support\Facades\Artisan;
+use App\Build\MigrationService;
+use App\Build\ModelService;
+use App\Build\MidwayService;
+use App\Build\ControllerService;
 use Illuminate\Support\Facades\Storage;
 
 class ProjectService
 {
-    public function createProject()
-    {
-        //
+    protected $migrationService;
+    protected $modelService;
+    protected $midService;
+    protected $controllerService;
+
+    public function __construct(
+        MigrationService $migrationService,
+        ModelService $modelService,
+        MidwayService $midService,
+        ControllerService $controllerService
+    ) {
+        $this->migrationService = $migrationService;
+        $this->modelService = $modelService;
+        $this->midService = $midService;
+        $this->controllerService = $controllerService;
     }
 
-    public function createTables()
+    public function createProject(array $projectData)
     {
-        //
+        $this->createTables($projectData['tables']);
     }
 
-    public function createControllers()
+    public function createTables(array $tables)
     {
-        //
-    }
-
-    public function createModels()
-    {
-        //
-    }
-
-    public function createServices()
-    {
-        //
-    }
-
-    public function createRoutes()
-    {
-        //
+        foreach ($tables as $value) {
+            $this->migrationService->create($value['name'], $value['fields']);
+            $this->modelService->create($value['name'], $value['fields']);
+            $this->midService->create($value['name']);
+            $this->controllerService->create(($value['name']));
+        }
     }
 }

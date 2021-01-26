@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Https\Controllers;
+
+use App\Facades\DummyFacade;
+use Illuminate\Http\Request;
+
+class DummyController
+{
+    public function index()
+    {
+        return DummyFacade::list();
+    }
+
+    public function show(int $id)
+    {
+        return DummyFacade::get($id);
+    }
+
+    public function store(Request $request)
+    {
+        return DummyFacade::save($request->all());
+    }
+
+    public function update(Request $request, int $id)
+    {
+        return DummyFacade::save($request->all(), $id);
+    }
+
+    public function destroy(int $id)
+    {
+        DummyFacade::delete($id);
+    }
+}

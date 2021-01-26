@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Services;
+
+use App\Repositories\Interfaces\DummyClassRepositoryInterface;
+use App\Services\Interfaces\DummyClassInterface;
+
+class DummyClass extends BaseService implements DummyClassInterface
+{
+    /**
+     * DummyClass constructor
+     *
+     * @param DummyClassRepositoryInterface $dummyRepository
+     */
+    public function __construct(DummyClassRepositoryInterface $dummyRepository)
+    {
+        parent::__construct($dummyRepository);
+    }
+}

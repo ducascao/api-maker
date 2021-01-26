@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\DummyModel;
+use App\Repositories\BaseRepository;
+use App\Repositories\Interfaces\DummyRepositoryInterface;
+
+class DummyRepository extends BaseRepository implements DummyRepositoryInterface
+{
+    /**
+     * DummyRepository constructor
+     */
+    public function __construct(DummyModel $model)
+    {
+        parent::__construct($model);
+    }
+}
