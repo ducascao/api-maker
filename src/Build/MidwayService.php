@@ -2,9 +2,9 @@
 
 namespace Ducascao\ApiMaker\Build;
 
+use Ducascao\ApiMaker\Facades\Provider;
 use Ducascao\ApiMaker\Interfaces\MidwayServiceInterface;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Filesystem\Filesystem;
 
 class MidwayService implements MidwayServiceInterface
@@ -63,6 +63,8 @@ class MidwayService implements MidwayServiceInterface
     public function repository(string $name)
     {
         Artisan::call('make:repository ' .$name.'Repository');
+
+        Provider::bind('Repository', $name);
     }
 
     protected function getServicePath()
@@ -73,6 +75,8 @@ class MidwayService implements MidwayServiceInterface
     public function service(string $name)
     {
         Artisan::call('make:service ' .$name.'Service');
+
+        Provider::bind('Domain', $name);
     }
 
     public function facade(string $name)

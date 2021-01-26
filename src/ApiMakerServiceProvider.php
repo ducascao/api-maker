@@ -17,12 +17,17 @@ use Ducascao\ApiMaker\Build\ProjectService;
 use Ducascao\ApiMaker\Build\ModelService;
 use Ducascao\ApiMaker\Build\ControllerService;
 use Ducascao\ApiMaker\Build\MigrationService;
+use Ducascao\ApiMaker\Build\ProviderService;
+use Ducascao\ApiMaker\Build\RouteService;
+use Ducascao\ApiMaker\Commands\ProviderServiceMakeCommand;
 use Ducascao\ApiMaker\Commands\StubsPublishCommand;
 use Ducascao\ApiMaker\Interfaces\ControllerServiceInterface;
 use Ducascao\ApiMaker\Interfaces\MidwayServiceInterface;
 use Ducascao\ApiMaker\Interfaces\MigrationServiceInterface;
 use Ducascao\ApiMaker\Interfaces\ModelServiceInterface;
 use Ducascao\ApiMaker\Interfaces\ProjectServiceInterface;
+use Ducascao\ApiMaker\Interfaces\ProviderServiceInterface;
+use Ducascao\ApiMaker\Interfaces\RouteServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class ApiMakerServiceProvider extends ServiceProvider
@@ -56,6 +61,7 @@ class ApiMakerServiceProvider extends ServiceProvider
             BaseInterfaceMakeCommand::class,
             BaseServiceMakeCommand::class,
             BaseRepositoryInterfaceMakeCommand::class,
+            ProviderServiceMakeCommand::class
         ]);
     }
 
@@ -78,6 +84,8 @@ class ApiMakerServiceProvider extends ServiceProvider
         $this->app->bind(ProjectServiceInterface::class, ProjectService::class);
         $this->app->bind(MidwayServiceInterface::class, MidwayService::class);
         $this->app->bind(ControllerServiceInterface::class, ControllerService::class);
+        $this->app->bind(RouteServiceInterface::class, RouteService::class);
+        $this->app->bind(ProviderServiceInterface::class, ProviderService::class);
     }
 
     /**

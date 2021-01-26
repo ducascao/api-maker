@@ -19,4 +19,21 @@ class ApiMaker
             $router->post('/model', 'BuildController@createModel');
         });
     }
+
+    public function findMarkerAndAddText(string $marker, string $text, string $fileContent): string
+    {
+        $arrayText = explode(PHP_EOL, $fileContent);
+
+        $arrayText = array_map(function ($line) use ($marker, $text) {
+            $posMarker = strpos($line, $marker);
+
+            if ($posMarker !== false) {
+                $line .= PHP_EOL . str_repeat(' ', $posMarker) . $text;
+            }
+
+            return $line;
+        }, $arrayText);
+
+        return implode(PHP_EOL, $arrayText);
+    }
 }
