@@ -1,63 +1,41 @@
 {
-    "name": "laravel/laravel",
-    "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": [
-        "framework",
-        "laravel"
-    ],
+    "name": "ducascao/api-maker",
+    "description": "Cria endpoints de API de maneira rápida com services e repository",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Eduardo de Assis Leite",
+            "email": "ducascao@gmail.com",
+            "homepage": "author homepage"
+        }
+    ],
+    "homepage": "https://github.com/ducascao/api-maker",
+    "keywords": ["Laravel", "ApiMaker"],
     "require": {
-        "php": "^7.2.5|^8.0",
-        "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
-        "laravel/framework": "^7.29",
-        "laravel/tinker": "^2.5"
+        "illuminate/support": "~7|~8"
     },
     "require-dev": {
-        "facade/ignition": "^2.0",
-        "fakerphp/faker": "^1.9.1",
-        "mockery/mockery": "^1.3.1",
-        "nunomaduro/collision": "^4.3",
-        "phpunit/phpunit": "^8.5.8|^9.3.3"
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true
-    },
-    "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
+        "phpunit/phpunit": "~9.0",
+        "orchestra/testbench": "~5|~6"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
-        },
-        "classmap": [
-            "database/seeds",
-            "database/factories"
-        ]
+            "Ducascao\\ApiMaker\\": "src/"
+        }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Ducascao\\ApiMaker\\Tests\\": "tests"
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "scripts": {
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
-        ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
-        ]
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ducascao\\ApiMaker\\ApiMakerServiceProvider"
+            ],
+            "aliases": {
+                "ApiMaker": "Ducascao\\ApiMaker\\Facades\\ApiMaker"
+            }
+        }
     }
 }

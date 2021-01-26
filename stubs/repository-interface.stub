@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces;
 
-interface DummyRepositoryInterface extends BaseRepositoryInterface
+interface Dummy extends BaseRepositoryInterface
 {
     
 }
