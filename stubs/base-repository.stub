@@ -32,6 +32,21 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function list(array $filter = [], ?object $pagination = null, ?array $orderBy = null): object
     {
+        $query = $this->query($filter, $pagination, $orderBy);
+
+        return $query->get();
+    }
+
+    /**
+     * Get query
+     *
+     * @param array $filter
+     * @param ?object $pagination
+     * @param ?array $orderBy
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function query(array $filter = [], ?object $pagination = null, ?array $orderBy = null): object
+    {
         $query = $this->model->where($filter);
 
         if ($orderBy) {

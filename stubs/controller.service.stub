@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Https\Controllers;
+namespace App\Http\Controllers;
 
 use App\Facades\DummyFacade;
 use Illuminate\Http\Request;

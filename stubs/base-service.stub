@@ -36,6 +36,19 @@ class BaseService implements BaseServiceInterface
     }
 
     /**
+     * Get query
+     *
+     * @param array $filter
+     * @param ?object $pagination
+     * @param ?array $orderBy
+     * @return \Illuminate\Database\Eloquent\Model[]
+     */
+    public function query(array $filter = [], ?object $pagination = null, ?array $orderBy = null): object
+    {
+        return $this->repository->query($filter, $pagination, $orderBy);
+    }
+
+    /**
      * Get By Id
      *
      * @param number $id

@@ -6,6 +6,7 @@ use Ducascao\ApiMaker\Facades\Controller;
 use Ducascao\ApiMaker\Facades\Midway;
 use Ducascao\ApiMaker\Facades\Migration;
 use Ducascao\ApiMaker\Facades\Model;
+use Ducascao\ApiMaker\Facades\Route;
 
 class ProjectService
 {
@@ -28,7 +29,8 @@ class ProjectService
             Migration::create($value['name'], $value['fields']);
             Model::create($value['name'], $value['fields']);
             Midway::create($value['name']);
-            Controller::create(($value['name']));
+            Controller::create($value['name']);
+            Route::create($value['name']);
 
             sleep(1);
         }
