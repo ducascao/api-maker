@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+/** API Maker: imports */
+
 class DummyClass extends ServiceProvider
 {
     /**

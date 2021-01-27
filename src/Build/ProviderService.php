@@ -18,12 +18,23 @@ class ProviderService implements ProviderServiceInterface
     {
         $providerText = $this->findProvider($provider);
 
-        $bindText = sprintf(
-            '$this->app->bind(App\%s\Interfaces\%s%sInterface::class, App\%s\%s%s::class);',
+        $importText = sprintf(
+            'use App\%s\Interfaces\%s%sInterface;
+use App\%s\%s%s;',
             $folder,
             $name,
             $type,
             $folder,
+            $name,
+            $type
+        );
+
+        $providerText = ApiMaker::findMarkerAndAddText('/** API Maker: imports */', $importText, $providerText);
+
+        $bindText = sprintf(
+            '$this->app->bind(%s%sInterface::class, %s%s::class);',
+            $name,
+            $type,
             $name,
             $type
         );
