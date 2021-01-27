@@ -19,7 +19,7 @@ class RouteService implements RouteServiceInterface
             $name
         );
 
-        ApiMaker::findMarkerAndAddText('/** API Maker: Routes */', $routeText, $routeFile);
+        $routeFile = ApiMaker::findMarkerAndAddText('/** API Maker: Routes */', $routeText, $routeFile);
 
         File::put($this->getRouteFilePath(), $routeFile);
     }

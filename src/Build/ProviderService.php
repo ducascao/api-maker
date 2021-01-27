@@ -14,14 +14,18 @@ class ProviderService implements ProviderServiceInterface
         Artisan::call('make:provider-service '.$name.'ServiceProvider');
     }
 
-    public function bind(string $provider, string $name)
+    public function bind(string $provider, string $name, string $folder, string $type)
     {
         $providerText = $this->findProvider($provider);
 
         $bindText = sprintf(
-            '$this->app->bind(App\Interfaces\%sServiceInterface::class, App\Services\%sService::class);',
+            '$this->app->bind(App\%s\Interfaces\%s%sInterface::class, App\%s\%s%s::class);',
+            $folder,
             $name,
-            $name
+            $type,
+            $folder,
+            $name,
+            $type
         );
 
         $providerText = ApiMaker::findMarkerAndAddText('/** API Maker: Binds */', $bindText, $providerText);
