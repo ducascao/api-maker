@@ -110,14 +110,14 @@ App\Providers\RepositoryServiceProvider::class,
 
 | Atributo      | Tipo          | Descrição     |
 | :------------ | :-----------: | :-----------: |
-| tables        | [Table object](table-object)  | Array de objeto contendo todas as tabelas do projeto  |
+| tables        | [Table object](#table-object)  | Array de objeto contendo todas as tabelas do projeto  |
 
 ### Table object
 
 | Atributo      | Tipo          | Descrição     |
 | :------------ | :-----------: | :-----------: |
 | name          | string        | Nome da tabela em pascal case no singular |
-| fields        | [Field object](field-object)  | Array de objeto contendo o campos da tabela |
+| fields        | [Field object](#field-object)  | Array de objeto contendo o campos da tabela |
 
 ### Field object
 
