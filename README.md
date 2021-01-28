@@ -3,7 +3,6 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Build Status][ico-travis]][link-travis]
-[![StyleCI][ico-styleci]][link-styleci]
 
 Cria endpoints de API de maneira rápida com services e repository.
 
@@ -103,17 +102,31 @@ App\Providers\DomainServiceProvider::class,
 App\Providers\RepositoryServiceProvider::class,
 ```
 
+**Atenção**
+
+>Ao montar o json, respeite o relacionamento das tabelas. A ordem do array também será a ordem das migrations.
+
 ## Corpo da Request (JSON)
 
-| Atributo      | Descrição     |
-| :------------ | :-----------: |
-| tables        | Array de objeto contendo todas as tabelas do projeto                                      |
-| name (table object)         | Nome da tabela em pascal case no singular                                   |
-| fields        | Array de objeto contendo o campos da tabela                                               |
-| name (field object)         | Nome do campo                                                               |
-| type          | Tipo do campo de acordo com a doc do [Laravel](https://laravel.com/docs/7.x/migrations)   |
-| required      | Boolean para identificar se o campo é obrigatório                                         |
-| relationship  | Tabela relacionada ao campo criado em plural snake case                                   |
+| Atributo      | Tipo          | Descrição     |
+| :------------ | :-----------: | :-----------: |
+| tables        | [Table object](table-object)  | Array de objeto contendo todas as tabelas do projeto  |
+
+### Table object
+
+| Atributo      | Tipo          | Descrição     |
+| :------------ | :-----------: | :-----------: |
+| name          | string        | Nome da tabela em pascal case no singular |
+| fields        | [Field object](field-object)  | Array de objeto contendo o campos da tabela |
+
+### Field object
+
+| Atributo      | Tipo          | Descrição     |
+| :------------ | :-----------: | :-----------: |
+| name          | string  | Nome do campo |
+| type          | string  | Tipo do campo de acordo com a doc do [Laravel](https://laravel.com/docs/7.x/migrations) |
+| required      | boolean | Identifica se o campo é obrigatório |
+| relationship  | string  | Tabela relacionada ao campo criado em plural snake case |
 
 ## Creditos
 
