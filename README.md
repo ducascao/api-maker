@@ -5,9 +5,9 @@
 [![Build Status][ico-travis]][link-travis]
 [![StyleCI][ico-styleci]][link-styleci]
 
-This is where your description should go. Take a look at [contributing.md](contributing.md) to see a to do list.
+Cria endpoints de API de maneira rápida com services e repository.
 
-## Installation
+## Instalação
 
 Via Composer
 
@@ -15,34 +15,114 @@ Via Composer
 $ composer require ducascao/api-maker
 ```
 
-## Usage
-
-## Change log
-
-Please see the [changelog](changelog.md) for more information on what has changed recently.
-
-## Testing
+* Publicar os stubs para a criação dos arquivos:
 
 ``` bash
-$ composer test
+$ php artisan api-maker:stub-publish
 ```
 
-## Contributing
+## Configuração
 
-Please see [contributing.md](contributing.md) for details and a todolist.
+* Abra o arquivo de rotas e registre as rotas do projeto:
 
-## Security
+``` php
+ApiMaker::routes();
+```
+* Adicione o seguinte marcador `/** API Maker: Routes */` para que o ApiMaker implemente automaticamente as rotas criadas:
 
-If you discover any security related issues, please email ducascao@gmail.com instead of using the issue tracker.
+``` php
+Route::group(['middleware' => 'auth:api'], function () {
+    /** API Maker: Routes */
+});
+```
 
-## Credits
+## Uso
+
+* Para utilizá-lo, basta consumir o seguinte endpoint de acordo com o registro feito na configuração:
+
+```
+POST /build/project
+```
+
+* Exemplo de request:
+
+``` json
+{
+  "tables": [
+    {
+      "name": "Template",
+      "fields": [
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "path",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "Customer",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "phone_number",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "template_id",
+          "type": "unsignedInteger",
+          "required": false,
+          "relationship": {
+            "table": "templates"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+* Registre os seguintes providers no seu arquivo config/app.php:
+
+``` php
+/*
+* Application Service Providers...
+*/
+App\Providers\DomainServiceProvider::class,
+App\Providers\RepositoryServiceProvider::class,
+```
+
+## Corpo da Request (JSON)
+
+| Atributo      | Descrição     |
+| :------------ | :-----------: |
+| tables        | Array de objeto contendo todas as tabelas do projeto                                      |
+| name (table object)         | Nome da tabela em pascal case no singular                                   |
+| fields        | Array de objeto contendo o campos da tabela                                               |
+| name (field object)         | Nome do campo                                                               |
+| type          | Tipo do campo de acordo com a doc do [Laravel](https://laravel.com/docs/7.x/migrations)   |
+| required      | Boolean para identificar se o campo é obrigatório                                         |
+| relationship  | Tabela relacionada ao campo criado em plural snake case                                   |
+
+## Creditos
 
 - [Eduardo de Assis Leite][link-author]
-- [All Contributors][link-contributors]
+- [Caique Benassi Bertolozzi](https://github.com/caiquebb)
 
-## License
+## Licença
 
-MIT. Please see the [license file](license.md) for more information.
+MIT. Por favor, consulte o [arquivo de licença](license.md) pra mais informações.
 
 [ico-version]: https://img.shields.io/packagist/v/ducascao/api-maker.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/ducascao/api-maker.svg?style=flat-square
