@@ -124,7 +124,7 @@ App\Providers\RepositoryServiceProvider::class,
 | Atributo      | Tipo          | Descrição     |
 | :------------ | :-----------: | :-----------: |
 | name          | string  | Nome do campo |
-| type          | string  | Tipo do campo de acordo com a doc do [Laravel](https://laravel.com/docs/7.x/migrations) |
+| type          | string  | Tipo do campo de acordo com a doc do [Laravel](https://laravel.com/docs/7.x/migrations#columns) |
 | required      | boolean | Identifica se o campo é obrigatório |
 | relationship  | string  | Tabela relacionada ao campo criado em plural snake case |
 
