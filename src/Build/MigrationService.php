@@ -56,20 +56,26 @@ class MigrationService implements MigrationServiceInterface
         $table = '$table->';
         $nullable = '';
         $dummyField = '';
+        $size = '';
 
         if (isset($field['required']) && $field['required'] === false) {
             $nullable = "->nullable()";
         }
 
+        if (isset($field['size'])) {
+            $preSize = explode(',', str_replace(' ', '', $field['size']));
+            $size = ', ' . implode(', ', $preSize);
+        }
+
         if (isset($field['relationship'])) {
             $dummyField .= $this->addRelationField($field, $nullable);
         } else {
-            if ($pos === $size - 1) {
-                $dummyField .= $tab.$table.$field['type']."('$field[name]')$nullable;";
+            if ($pos === - 1) {
+                $dummyField .= $tab.$table.$field['type']."('$field[name]'$size)$nullable;";
             } elseif ($pos === 0) {
-                $dummyField .= $table.$field['type']."('$field[name]')$nullable;\n";
+                $dummyField .= $table.$field['type']."('$field[name]'$size)$nullable;\n";
             } else {
-                $dummyField .= $tab.$table.$field['type']."('$field[name]')$nullable;\n";
+                $dummyField .= $tab.$table.$field['type']."('$field[name]'$size)$nullable;\n";
             }
         }
 

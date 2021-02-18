@@ -31,8 +31,9 @@ class ModelService implements ModelServiceInterface
         $model = $this->getModelsPath().DIRECTORY_SEPARATOR.$name.'.php';
 
         if (!$this->files->exists($model)) {
-            Artisan::call('make:model Models/' .$name);
-
+            $name = $this->checkLaravelVersion(8) ? $name : "Models\{$name}";
+            Artisan::call("make:model {$name}");
+            
             return $this->findModel($name);
         }
 
@@ -42,6 +43,13 @@ class ModelService implements ModelServiceInterface
             'filename' => $model,
             'file' => $modelFile
         ];
+    }
+
+    protected function checkLaravelVersion(int $majorVersion = 8) : bool
+    {
+        $laravelMajorVersion = (int) explode('.', app()->version())[0];
+
+        return (bool) $laravelMajorVersion >= $majorVersion;
     }
 
     protected function getModelsPath()

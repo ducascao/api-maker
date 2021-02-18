@@ -10,26 +10,27 @@ Cria endpoints de API de maneira rápida com services e repository.
 
 Via Composer
 
-``` bash
+```bash
 $ composer require ducascao/api-maker
 ```
 
-* Publicar os stubs para a criação dos arquivos:
+- Publicar os stubs para a criação dos arquivos:
 
-``` bash
+```bash
 $ php artisan api-maker:stub-publish
 ```
 
 ## Configuração
 
-* Abra o arquivo de rotas e registre as rotas do projeto:
+- Abra o arquivo de rotas e registre as rotas do projeto:
 
-``` php
+```php
 ApiMaker::routes();
 ```
-* Adicione o seguinte marcador `/** API Maker: Routes */` para que o ApiMaker implemente automaticamente as rotas criadas:
 
-``` php
+- Adicione o seguinte marcador `/** API Maker: Routes */` para que o ApiMaker implemente automaticamente as rotas criadas:
+
+```php
 Route::group(['middleware' => 'auth:api'], function () {
     /** API Maker: Routes */
 });
@@ -37,15 +38,15 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 ## Uso
 
-* Para utilizá-lo, basta consumir o seguinte endpoint de acordo com o registro feito na configuração:
+- Para utilizá-lo, basta consumir o seguinte endpoint de acordo com o registro feito na configuração:
 
 ```
 POST /build/project
 ```
 
-* Exemplo de request:
+- Exemplo de request:
 
-``` json
+```json
 {
   "tables": [
     {
@@ -92,9 +93,9 @@ POST /build/project
 }
 ```
 
-* Registre os seguintes providers no seu arquivo config/app.php:
+- Registre os seguintes providers no seu arquivo config/app.php:
 
-``` php
+```php
 /*
 * Application Service Providers...
 */
@@ -104,29 +105,30 @@ App\Providers\RepositoryServiceProvider::class,
 
 **Atenção**
 
->Ao montar o json, respeite o relacionamento das tabelas. A ordem do array também será a ordem das migrations.
+> Ao montar o json, respeite o relacionamento das tabelas. A ordem do array também será a ordem das migrations.
 
 ## Corpo da Request (JSON)
 
-| Atributo      | Tipo          | Descrição     |
-| :------------ | :-----------: | :-----------: |
-| tables        | [Table object](#table-object)  | Array de objeto contendo todas as tabelas do projeto  |
+| Atributo |             Tipo              |                      Descrição                       |
+| :------- | :---------------------------: | :--------------------------------------------------: |
+| tables   | [Table object](#table-object) | Array de objeto contendo todas as tabelas do projeto |
 
 ### Table object
 
-| Atributo      | Tipo          | Descrição     |
-| :------------ | :-----------: | :-----------: |
-| name          | string        | Nome da tabela em pascal case no singular |
-| fields        | [Field object](#field-object)  | Array de objeto contendo o campos da tabela |
+| Atributo |             Tipo              |                  Descrição                  |
+| :------- | :---------------------------: | :-----------------------------------------: |
+| name     |            string             |  Nome da tabela em pascal case no singular  |
+| fields   | [Field object](#field-object) | Array de objeto contendo o campos da tabela |
 
 ### Field object
 
-| Atributo      | Tipo          | Descrição     |
-| :------------ | :-----------: | :-----------: |
-| name          | string  | Nome do campo |
-| type          | string  | Tipo do campo de acordo com a doc do [Laravel](https://laravel.com/docs/7.x/migrations#columns) |
-| required      | boolean | Identifica se o campo é obrigatório |
-| relationship  | string  | Tabela relacionada ao campo criado em plural snake case |
+| Atributo     |  Tipo   |                                            Descrição                                            |
+| :----------- | :-----: | :---------------------------------------------------------------------------------------------: |
+| name         | string  |                                          Nome do campo                                          |
+| type         | string  | Tipo do campo de acordo com a doc do [Laravel](https://laravel.com/docs/7.x/migrations#columns) |
+| size         | string  |                                   Modifica o tamanho do campo                                   |
+| required     | boolean |                               Identifica se o campo é obrigatório                               |
+| relationship | string  |                     Tabela relacionada ao campo criado em plural snake case                     |
 
 ## Creditos
 
@@ -141,7 +143,6 @@ MIT. Por favor, consulte o [arquivo de licença](license.md) pra mais informaç�
 [ico-downloads]: https://img.shields.io/packagist/dt/ducascao/api-maker.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/ducascao/api-maker/master.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/12345678/shield
-
 [link-packagist]: https://packagist.org/packages/ducascao/api-maker
 [link-downloads]: https://packagist.org/packages/ducascao/api-maker
 [link-travis]: https://travis-ci.org/ducascao/api-maker
