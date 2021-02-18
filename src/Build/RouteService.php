@@ -14,7 +14,7 @@ class RouteService implements RouteServiceInterface
         $routeFile = File::get($this->getRouteFilePath());
 
         $routeText = sprintf(
-            "Route::apiResource('%s', '%sController');",
+            "Route::apiResource('%s', App\Http\Controllers\%sController::class);",
             $this->getResourceName($name),
             $name
         );
