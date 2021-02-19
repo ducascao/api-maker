@@ -18,6 +18,7 @@ use Ducascao\ApiMaker\Build\ModelService;
 use Ducascao\ApiMaker\Build\ControllerService;
 use Ducascao\ApiMaker\Build\MigrationService;
 use Ducascao\ApiMaker\Build\ProviderService;
+use Ducascao\ApiMaker\Build\CommonService;
 use Ducascao\ApiMaker\Build\RouteService;
 use Ducascao\ApiMaker\Commands\ProviderServiceMakeCommand;
 use Ducascao\ApiMaker\Commands\StubsPublishCommand;
@@ -27,6 +28,7 @@ use Ducascao\ApiMaker\Interfaces\MigrationServiceInterface;
 use Ducascao\ApiMaker\Interfaces\ModelServiceInterface;
 use Ducascao\ApiMaker\Interfaces\ProjectServiceInterface;
 use Ducascao\ApiMaker\Interfaces\ProviderServiceInterface;
+use Ducascao\ApiMaker\Interfaces\CommonServiceInterface;
 use Ducascao\ApiMaker\Interfaces\RouteServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
@@ -86,6 +88,7 @@ class ApiMakerServiceProvider extends ServiceProvider
         $this->app->bind(ControllerServiceInterface::class, ControllerService::class);
         $this->app->bind(RouteServiceInterface::class, RouteService::class);
         $this->app->bind(ProviderServiceInterface::class, ProviderService::class);
+        $this->app->bind(CommonServiceInterface::class, CommonService::class);
     }
 
     /**
